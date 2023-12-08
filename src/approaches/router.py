@@ -5,9 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select, insert, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from approaches.models import Approach
-from approaches.schemas import ApproachRead, ApproachCreate, ApproachUpdate
-from database.database import get_async_session
+from src.approaches.models import Approach
+from src.approaches.schemas import ApproachRead, ApproachCreate, ApproachUpdate
+from src.database.database import get_async_session
 
 router = APIRouter(prefix="/api/approaches", tags=["Approaches"])
 

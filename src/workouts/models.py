@@ -4,8 +4,8 @@ from typing import List
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from approaches.models import Approach
-from models import Base
+from src.approaches.models import Approach
+from src.models import Base
 
 
 class Workout(Base):

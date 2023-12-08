@@ -2,9 +2,9 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import load_only
 
-from approaches.models import Approach
-from users.models import GlobalStats, User
-from workouts.models import Workout
+from src.approaches.models import Approach
+from src.users.models import GlobalStats, User
+from src.workouts.models import Workout
 
 
 class StatsService:

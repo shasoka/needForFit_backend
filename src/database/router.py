@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import text
 
-from database.database import SessionLocal
+from src.database.database import SessionLocal
 
 router = APIRouter(
     prefix="/api/ping",

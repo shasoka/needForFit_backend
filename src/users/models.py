@@ -6,9 +6,9 @@ from sqlalchemy import (create_engine, Column, Integer, String, Float,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from workouts.models import Workout
+from src.workouts.models import Workout
 
-from models import Base
+from src.models import Base
 
 
 class User(Base):

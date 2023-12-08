@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from models import Base
+from src.models import Base
 
 
 class Approach(Base):

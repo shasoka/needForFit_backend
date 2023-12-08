@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.database import get_async_session
-from workouts.models import Workout
-from workouts.schemas import WorkoutRead, WorkoutCreate
+from src.database.database import get_async_session
+from src.workouts.models import Workout
+from src.workouts.schemas import WorkoutRead, WorkoutCreate
 
 router = APIRouter(prefix="/api/workouts", tags=["Workouts"])
 

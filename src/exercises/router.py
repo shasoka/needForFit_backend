@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.database import get_async_session
-from exercises.models import Exercise
-from exercises.schemas import ExerciseRead, ExerciseCreate
+from src.database.database import get_async_session
+from src.exercises.models import Exercise
+from src.exercises.schemas import ExerciseRead, ExerciseCreate
 
 import time
 

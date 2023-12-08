@@ -1,6 +1,6 @@
 import datetime
 
-from schemas import ORMBase
+from src.schemas import ORMBase
 
 
 class WorkoutRead(ORMBase):

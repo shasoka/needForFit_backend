@@ -2,8 +2,8 @@ from typing import List
 
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 
-from workouts.models import Approach
-from models import Base
+from src.workouts.models import Approach
+from src.models import Base
 
 
 class Exercise(Base):

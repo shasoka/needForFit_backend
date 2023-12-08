@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.database import get_async_session
-from users.models import GlobalStats
-from users.service import StatsService
+from src.database.database import get_async_session
+from src.users.models import GlobalStats
+from src.users.service import StatsService
 
 router = APIRouter(
     prefix="/api/users",

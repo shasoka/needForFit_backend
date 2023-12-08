@@ -1,4 +1,4 @@
-from src.schemas import ORMBase
+from schemas import ORMBase
 
 
 class ExerciseCreate(ORMBase):

@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from approaches.models import Approach
-from src.models import Base
+from models import Base
 
 
 class Workout(Base):

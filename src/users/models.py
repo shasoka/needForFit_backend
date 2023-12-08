@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from workouts.models import Workout
 
-from src.models import Base
+from models import Base
 
 
 class User(Base):

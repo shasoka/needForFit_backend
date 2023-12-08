@@ -1,0 +1,41 @@
+CREATE DATABASE nff WITH TEMPLATE = template0 ENCODING 'WIN1251';
+
+\c nff;
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS workouts (
+    id SERIAL PRIMARY KEY,
+    uid INTEGER REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS global_stats (
+    id SERIAL PRIMARY KEY,
+    uid INTEGER REFERENCES users(id),
+    ttl_weight INTEGER NOT NULL,
+    ttl_reps INTEGER NOT NULL,
+    ttl_time DOUBLE PRECISION NOT NULL,
+    max_weight INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS exercises (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    image VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS approaches (
+    id SERIAL PRIMARY KEY,
+    wid INTEGER REFERENCES workouts(id),
+    eid INTEGER REFERENCES exercises(id),
+    reps INTEGER,
+    weight INTEGER,
+    time DOUBLE PRECISION
+);

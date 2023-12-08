@@ -8,7 +8,6 @@ from workouts.router import router as workout_router
 from approaches.router import router as approach_router
 from users.router import router as user_router
 
-
 app = FastAPI(title="Need for fit")
 
 

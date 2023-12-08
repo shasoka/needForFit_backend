@@ -40,4 +40,6 @@
    ```
    python.exe -m uvicorn src.main:app --reload
    ```
-2. Победа!
+2. Вы также можете добавить профиль запуска в вашей IDE. Он должен выглядеть следующим образом:
+   ![run_profile](https://github.com/shasoka/needForFit_backend/assets/90062361/fcce8ed6-e659-4287-ab92-f4c623c62800)
+4. Победа!

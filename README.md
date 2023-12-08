@@ -12,7 +12,7 @@
    psql -U postgres -h localhost -f .\migrations\migrate.sql -f .\migrations\seed.sql
    ```
    Скрипт ```migrate.sql``` создает БД с именем nff и пятью таблицами. 
-   Скрипт```seed.sql``` заполняет таблицы плейсхолдерами.
+   Скрипт ```seed.sql``` заполняет таблицы плейсхолдерами.
 2. Создаем файл с именем ```.env```. Его содержимое должно иметь следующую структуру:
    ```
    DB_HOST=<postgresql host>

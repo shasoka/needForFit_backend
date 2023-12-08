@@ -8,6 +8,8 @@ from database.database import get_async_session
 from exercises.models import Exercise
 from exercises.schemas import ExerciseRead, ExerciseCreate
 
+import time
+
 
 router = APIRouter(
     prefix="/api/exercises",
@@ -19,6 +21,7 @@ router = APIRouter(
 async def get_exercises(session: AsyncSession = Depends(get_async_session)):
     query = select(Exercise)
     result = await session.execute(query)
+    tmp = result.scalars().first()
     exercises = [{"id": exercise.id,
                   "name": exercise.name,
                   "description": exercise.description,
@@ -39,4 +42,19 @@ async def seed_exercises(session: AsyncSession = Depends(get_async_session)):
         await session.execute(stmt)
 
     await session.commit()
-    return {"status": "successfully seeded"}
+    return {"message": "Successfully seeded"}
+
+
+@router.post("/huge_seed")
+async def huge_seed_exercises(session: AsyncSession = Depends(get_async_session)):
+    to_seed = []
+    for i in range(500000):
+        to_seed.append({"name": f"Упражнение {i}",
+                        "description": f"Описание {i}",
+                        "image": f"image{i}.jpg"})
+
+    stmt = insert(Exercise)
+    await session.execute(stmt, to_seed)
+
+    await session.commit()
+    return {"message": "Successfully seeded"}

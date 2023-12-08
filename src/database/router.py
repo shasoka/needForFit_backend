@@ -15,6 +15,6 @@ async def check_db_connection():
         async with session.begin():
             try:
                 await session.execute(text("SELECT 1"))
-                return {"status": "Database is working"}
+                return {"message": "Database is working"}
             except Exception:
                 raise HTTPException(status_code=500, detail="Database is not responding")

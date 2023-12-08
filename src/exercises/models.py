@@ -14,4 +14,4 @@ class Exercise(Base):
     description: Mapped[str] = mapped_column(nullable=False)
     image: Mapped[str] = mapped_column(nullable=False)
 
-    children: Mapped[List["Approach"]] = relationship()
+    children: Mapped[List[Approach]] = relationship()

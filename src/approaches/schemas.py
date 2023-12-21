@@ -21,13 +21,6 @@ class ApproachCreate(MyBaseModel):
     time: float = None
 
 
-class ApproachUpdate(MyBaseModel):
-    eid: int = None
-    reps: int = None
-    weight: int = None
-    time: float = None
-
-
 class ApproachGrouped(MyBaseModel):
     exercise: ExerciseRead
     approaches: List[ApproachRead]

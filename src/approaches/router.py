@@ -1,14 +1,10 @@
-from itertools import groupby
-from typing import List, Dict
+from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select, delete
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from src.approaches import service
-from src.database.models import Approach
-from src.approaches.schemas import ApproachRead, ApproachCreate, ApproachUpdate, ApproachGrouped
+from src.approaches.schemas import ApproachRead, ApproachCreate, ApproachGrouped
 from src.database.database import get_async_session
 
 
@@ -25,9 +21,9 @@ async def create_approach(new_approach: ApproachCreate, session: AsyncSession = 
     return await service.create_approach(session, new_approach)
 
 
-@router.put("/{aid}", response_model=ApproachRead)
-async def update_approach(aid: int, approach_data: ApproachRead, session: AsyncSession = Depends(get_async_session)):
-    return await service.update_approach(session, aid, approach_data)
+@router.post("/update", response_model=ApproachRead)
+async def update_approach(approach_data: ApproachRead, session: AsyncSession = Depends(get_async_session)):
+    return await service.update_approach(session, approach_data)
 
 
 @router.delete("/{aid}", response_model=ApproachRead)
@@ -35,11 +31,6 @@ async def delete_approach(aid: int, session: AsyncSession = Depends(get_async_se
     return await service.delete_approach(session, aid)
 
 
-@router.delete("/{wid}/{eid}")
-async def delete_exercise_in_workout(wid: int, eid: int, session: AsyncSession = Depends(get_async_session)):
-    stmt = delete(Approach).where((Approach.eid == eid) & (
-            Approach.wid == wid))
-    await session.execute(stmt)
-    await session.commit()
-    return {
-        "message": f"All approaches with eid={eid} in workout wid={wid} deleted successfully"}
+@router.delete("/{wid}/{eid}", response_model=List[ApproachRead])
+async def delete_exercise_from_workout(wid: int, eid: int, session: AsyncSession = Depends(get_async_session)):
+    return await service.delete_exercise_from_workout(session, wid, eid)

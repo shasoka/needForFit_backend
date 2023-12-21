@@ -1,8 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload, aliased
 
-from src.database.models import Exercise, Approach
+from src.database.models import Exercise
 
 
 async def get_exercises(session: AsyncSession):

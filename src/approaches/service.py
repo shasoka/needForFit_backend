@@ -37,15 +37,16 @@ async def create_approach(session: AsyncSession, new_approach: ApproachCreate):
     return approach
 
 
-async def update_approach(session: AsyncSession, aid: int, approach_data: ApproachRead):
+async def update_approach(session: AsyncSession, approach_data: ApproachRead):
     # Проверка, существует ли подход с указанным ID
-    existing_approach = await session.get(Approach, aid)
+    upd_approach = approach_data.model_dump()
+    existing_approach = await session.get(Approach, upd_approach["id"])
 
     if existing_approach is None:
         raise HTTPException(status_code=404, detail="Approach not found")
 
     # Обновление данных подхода
-    for key, value in approach_data.model_dump().items():
+    for key, value in upd_approach.items():
         setattr(existing_approach, key, value)
 
     try:
@@ -59,7 +60,6 @@ async def update_approach(session: AsyncSession, aid: int, approach_data: Approa
 
 
 async def delete_approach(session: AsyncSession, aid: int):
-    # existing_approach = await session.execute(select(Approach).where((Approach.eid == eid) & (Approach.wid == wid)))
     existing_approach = await session.get(Approach, aid)
 
     if existing_approach is None:
@@ -69,3 +69,17 @@ async def delete_approach(session: AsyncSession, aid: int):
     await session.execute(stmt)
     await session.commit()
     return existing_approach
+
+
+async def delete_exercise_from_workout(session: AsyncSession, wid: int, eid: int):
+    existing_approaches = await session.execute(select(Approach).where((Approach.eid == eid) & (Approach.wid == wid)))
+
+    if existing_approaches is None:
+        raise HTTPException(status_code=404, detail="Approaches not found")
+
+    stmt = delete(Approach).where((Approach.eid == eid) & (Approach.wid == wid))
+    await session.execute(stmt)
+    await session.commit()
+
+    deleted_approaches = existing_approaches.scalars().all()
+    return deleted_approaches

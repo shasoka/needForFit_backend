@@ -7,6 +7,7 @@ from src.database.database import get_async_session
 from src.exercises import service
 from src.exercises.schemas import ExerciseRead
 
+
 router = APIRouter(
     prefix="/api/exercises",
     tags=["Exercises"]

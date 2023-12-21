@@ -18,6 +18,31 @@ class Exercise(Base):
     approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="exercise")
 
 
+class Workout(Base):
+    __tablename__ = "workouts"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
+
+    approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="workout")
+    user: Mapped["User"] = relationship("User", back_populates="children_w")
+
+
+class Approach(Base):
+    __tablename__ = "approaches"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    eid: Mapped[int] = mapped_column(ForeignKey("exercises.id"))
+    wid: Mapped[int] = mapped_column(ForeignKey("workouts.id"))
+    reps: Mapped[int] = mapped_column()
+    weight: Mapped[int] = mapped_column()
+    time: Mapped[float] = mapped_column()
+
+    exercise: Mapped["Exercise"] = relationship("Exercise", back_populates="approaches")
+    workout: Mapped[Workout] = relationship("Workout", back_populates="approaches")
+
+
 class User(Base):
     __tablename__ = "users"
 
@@ -39,28 +64,3 @@ class GlobalStats(Base):
     ttl_time: Mapped[float] = mapped_column(nullable=True)
     max_weight: Mapped[int] = mapped_column(nullable=True)
     uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
-
-
-class Workout(Base):
-    __tablename__ = "workouts"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
-
-    approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="workout")
-    user: Mapped[User] = relationship("User", back_populates="children_w")
-
-
-class Approach(Base):
-    __tablename__ = "approaches"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    eid: Mapped[int] = mapped_column(ForeignKey("exercises.id"))
-    wid: Mapped[int] = mapped_column(ForeignKey("workouts.id"))
-    reps: Mapped[int] = mapped_column()
-    weight: Mapped[int] = mapped_column()
-    time: Mapped[float] = mapped_column()
-
-    exercise: Mapped["Exercise"] = relationship("Exercise", back_populates="approaches")
-    workout: Mapped[Workout] = relationship("Workout", back_populates="approaches")

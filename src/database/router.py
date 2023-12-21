@@ -3,6 +3,7 @@ from sqlalchemy import text
 
 from src.database.database import SessionLocal
 
+
 router = APIRouter(
     prefix="/api/database",
     tags=["Database"]

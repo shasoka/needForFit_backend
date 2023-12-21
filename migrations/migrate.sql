@@ -39,3 +39,13 @@ CREATE TABLE IF NOT EXISTS approaches (
     weight INTEGER,
     time DOUBLE PRECISION
 );
+
+CREATE TABLE IF NOT EXISTS local_stats (
+    id SERIAL PRIMARY KEY,
+    wid INTEGER REFERENCES workouts(id),
+    exercises_count INTEGER,
+    max_weights JSONB,
+    max_reps JSONB,
+    favorite_exercise VARCHAR(255),
+    total_weight INTEGER
+);

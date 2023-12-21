@@ -14,3 +14,7 @@ class WorkoutRead(WorkoutBase):
 
 class WorkoutCreate(WorkoutBase):
     pass
+
+
+class WorkoutWithStatsRead(WorkoutRead):
+    stat: dict | None

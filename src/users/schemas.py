@@ -9,9 +9,5 @@ class UserRead(MyBaseModel):
     registered_at: datetime.datetime
 
 
-class StatsRead(MyBaseModel):
-    id: int
-    ttl_weight: int
-    ttl_reps: int
-    ttl_time: float
-    max_weight: int
+
+

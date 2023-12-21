@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, JSON
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from src.models import Base
@@ -26,7 +26,8 @@ class Workout(Base):
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="workout")
-    user: Mapped["User"] = relationship("User", back_populates="children_w")
+    user: Mapped["User"] = relationship("User", back_populates="workouts")
+    stat: Mapped["LocalStats"] = relationship("LocalStats", back_populates="workout")
 
 
 class Approach(Base):
@@ -51,8 +52,8 @@ class User(Base):
     password: Mapped[str] = mapped_column(nullable=False)
     registered_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
-    children_w: Mapped[List["Workout"]] = relationship("Workout", back_populates="user")
-    children_s: Mapped["GlobalStats"] = relationship()
+    workouts: Mapped[List["Workout"]] = relationship("Workout", back_populates="user")
+    stat: Mapped["GlobalStats"] = relationship("GlobalStats", back_populates="user")
 
 
 class GlobalStats(Base):
@@ -64,3 +65,19 @@ class GlobalStats(Base):
     ttl_time: Mapped[float] = mapped_column(nullable=True)
     max_weight: Mapped[int] = mapped_column(nullable=True)
     uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
+
+    user: Mapped[User] = relationship("User", back_populates="stat")
+
+
+class LocalStats(Base):
+    __tablename__ = "local_stats"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    wid: Mapped[int] = mapped_column(ForeignKey("workouts.id"))
+    exercises_count: Mapped[int] = mapped_column(nullable=True)
+    max_weights: Mapped[dict] = mapped_column(JSON, nullable=True)
+    max_reps: Mapped[dict] = mapped_column(JSON, nullable=True)
+    favorite_exercise: Mapped[str] = mapped_column(nullable=True)
+    total_weight: Mapped[int] = mapped_column(nullable=True)
+
+    workout: Mapped["Workout"] = relationship("Workout", back_populates="stat")

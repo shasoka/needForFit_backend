@@ -3,7 +3,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.database import get_async_session
-from src.users.models import GlobalStats
 from src.users.service import StatsService
 
 router = APIRouter(

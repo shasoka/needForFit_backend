@@ -4,26 +4,27 @@ INSERT INTO users (username, password) VALUES
 
 -- Добавление упражнений
 INSERT INTO exercises (name, description, image) VALUES
-    ('Приседания', 'Базовое упражнение для нижней части тела', NULL),
-    ('Жим лежа', 'Упражнение для верхней части тела', NULL),
-    ('Мертвая тяга', 'Комплексное упражнение для всего тела', NULL),
-    ('Тяга штанги вверх', 'Упражнение для плеч и трицепсов', NULL),
-    ('Подтягивания', 'Упражнение для верхней части тела', NULL),
-    ('Планка', 'Упражнение для стабилизации кора', NULL),
-    ('Молотки', 'Изоляционное упражнение для бицепсов', NULL),
-    ('Выпады', 'Тренировка ног, акцент на ягодицы и квадрицепсы', NULL),
-    ('Тяга гантелей к животу', 'Упражнение для спины и бицепсов', NULL),
-    ('Отжимания', 'Тренировка грудных и трицепсов', NULL),
-    ('Скручивания', 'Тренировка пресса', NULL),
-    ('Тяга ногами', 'Тренировка ног, акцент на бедра и ягодицы', NULL),
-    ('Подъем на носках', 'Изоляционное упражнение для икр', NULL),
-    ('Отжимания на брусьях', 'Тренировка трицепсов и грудных', NULL),
-    ('Русские повороты', 'Тренировка боковых мышц пресса', NULL),
-    ('Тяга верхнего блока', 'Тренировка спины и бицепсов', NULL),
-    ('Молотки для бицепсов', 'Изоляционное упражнение для бицепсов', NULL),
-    ('Обратные скручивания', 'Тренировка нижнего пресса', NULL),
-    ('Боковая планка', 'Упражнение для стабилизации кора', NULL),
-    ('Трицепсовые удлинения', 'Изоляционное упражнение для трицепсов', NULL);
+    ('Squats', 'Basic exercise for the lower body', NULL),
+    ('Bench Press', 'Exercise for the upper body', NULL),
+    ('Deadlift', 'Complex exercise for the whole body', NULL),
+    ('Overhead Barbell Press', 'Exercise for shoulders and triceps', NULL),
+    ('Pull-Ups', 'Exercise for the upper body', NULL),
+    ('Plank', 'Exercise for core stabilization', NULL),
+    ('Hammer Curls', 'Isolation exercise for biceps', NULL),
+    ('Lunges', 'Leg workout, emphasis on glutes and quadriceps', NULL),
+    ('Dumbbell Row to Abdomen', 'Exercise for back and biceps', NULL),
+    ('Push-Ups', 'Chest and triceps workout', NULL),
+    ('Crunches', 'Abdominal workout', NULL),
+    ('Leg Press', 'Leg workout, emphasis on thighs and glutes', NULL),
+    ('Calf Raises', 'Isolation exercise for calves', NULL),
+    ('Dips', 'Triceps and chest workout', NULL),
+    ('Russian Twists', 'Workout for oblique abdominal muscles', NULL),
+    ('Lat Pulldown', 'Back and biceps workout', NULL),
+    ('Hammer Curls for Biceps', 'Isolation exercise for biceps', NULL),
+    ('Reverse Crunches', 'Lower abdominal workout', NULL),
+    ('Side Plank', 'Exercise for core stabilization', NULL),
+    ('Triceps Extensions', 'Isolation exercise for triceps', NULL);
+
 
 -- Добавление тренировок
 INSERT INTO workouts (uid)

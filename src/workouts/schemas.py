@@ -1,13 +1,16 @@
 import datetime
 
-from src.schemas import ORMBase
+from src.schemas import MyBaseModel
 
 
-class WorkoutRead(ORMBase):
-    id: int
+class WorkoutBase(MyBaseModel):
     uid: int
+
+
+class WorkoutRead(WorkoutBase):
+    id: int
     created_at: datetime.datetime
 
 
-class WorkoutCreate(ORMBase):
-    uid: int
+class WorkoutCreate(WorkoutBase):
+    pass

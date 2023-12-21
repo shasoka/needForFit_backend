@@ -1,14 +1,14 @@
-from src.schemas import ORMBase
+from typing import List
+
+from src.database.models import Approach
+from src.schemas import MyBaseModel
 
 
-class ExerciseCreate(ORMBase):
+class ExerciseBase(MyBaseModel):
     name: str
     description: str
     image: str | None
 
 
-class ExerciseRead(ORMBase):
+class ExerciseRead(ExerciseBase):
     id: int
-    name: str
-    description: str
-    image: str | None

@@ -1,7 +1,10 @@
-from src.schemas import ORMBase
+from typing import List
+
+from src.exercises.schemas import ExerciseRead
+from src.schemas import MyBaseModel
 
 
-class ApproachRead(ORMBase):
+class ApproachRead(MyBaseModel):
     id: int
     eid: int
     wid: int
@@ -10,7 +13,7 @@ class ApproachRead(ORMBase):
     time: float | None
 
 
-class ApproachCreate(ORMBase):
+class ApproachCreate(MyBaseModel):
     eid: int
     wid: int
     reps: int = None
@@ -18,8 +21,13 @@ class ApproachCreate(ORMBase):
     time: float = None
 
 
-class ApproachUpdate(ORMBase):
+class ApproachUpdate(MyBaseModel):
     eid: int = None
     reps: int = None
     weight: int = None
     time: float = None
+
+
+class ApproachGrouped(MyBaseModel):
+    exercise: ExerciseRead
+    approaches: List[ApproachRead]

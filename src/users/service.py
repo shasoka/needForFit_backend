@@ -1,10 +1,7 @@
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import load_only
 
-from src.approaches.models import Approach
-from src.users.models import GlobalStats, User
-from src.workouts.models import Workout
+from src.database.models import GlobalStats, User, Approach, Workout
 
 
 class StatsService:

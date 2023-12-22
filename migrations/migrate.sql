@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS global_stats (
     uid INTEGER REFERENCES users(id),
     ttl_weight INTEGER NOT NULL,
     ttl_reps INTEGER NOT NULL,
-    ttl_time DOUBLE PRECISION NOT NULL,
-    max_weight INTEGER NOT NULL
+    max_weight INTEGER NOT NULL,
+    ttl_workouts INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS exercises (

@@ -1,6 +1,7 @@
 import datetime
 
 from src.schemas import MyBaseModel
+from src.statistics.schemas import LocalStatsRead
 
 
 class WorkoutBase(MyBaseModel):
@@ -17,4 +18,4 @@ class WorkoutCreate(WorkoutBase):
 
 
 class WorkoutWithStatsRead(WorkoutRead):
-    stat: dict | None
+    stat: LocalStatsRead | None

@@ -60,11 +60,11 @@ class GlobalStats(Base):
     __tablename__ = "global_stats"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
     ttl_weight: Mapped[int] = mapped_column(nullable=True)
     ttl_reps: Mapped[int] = mapped_column(nullable=True)
-    ttl_time: Mapped[float] = mapped_column(nullable=True)
     max_weight: Mapped[int] = mapped_column(nullable=True)
-    uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    ttl_workouts: Mapped[int] = mapped_column(nullable=True)
 
     user: Mapped[User] = relationship("User", back_populates="stat")
 

@@ -7,18 +7,25 @@ from src.database.models import Workout, LocalStats, Approach
 from src.workouts.schemas import WorkoutCreate
 
 
+async def get_uid_by_wid(wid: int, session: AsyncSession):
+    stmt = select(Workout.uid).where(Workout.id == wid)
+    result = await session.execute(stmt)
+    uid = result.scalar()
+    return uid
+
+
 async def get_workout(session: AsyncSession, id: int):
     workout = await session.execute(select(Workout).filter(Workout.id == id))
     return workout.scalar()
 
 
-async def get_workouts(session: AsyncSession):
-    result = await session.execute(select(Workout))
+async def get_workouts(session: AsyncSession, uid: int):
+    result = await session.execute(select(Workout).where(Workout.uid == uid))
     return result.scalars().all()
 
 
-async def get_workouts_with_stats(session: AsyncSession):
-    query = select(Workout).options(selectinload(Workout.stat))
+async def get_workouts_with_stats(session: AsyncSession, uid: int):
+    query = select(Workout).options(selectinload(Workout.stat)).where(Workout.uid == uid)
     result = await session.execute(query)
     return result.scalars().all()
 

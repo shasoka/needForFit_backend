@@ -21,7 +21,7 @@
    DB_USER=<postgesql username>
    DB_PASS=<postgresql password>
    ```
-   По дефолту хостом является ```localhost```, а портом - ```5432```.
+   По дефолту хостом является ```localhost```, а портом - ```5432``` (смотрите ```example.env```)
 3. Создаем виртуальное окружение и активируем его:
    ```
    python -m venv venv

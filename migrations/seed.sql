@@ -42,13 +42,13 @@ FROM workouts w, exercises e
 WHERE w.id <= 20;
 
 -- Добавление глобальной статистики
-INSERT INTO global_stats (uid, ttl_weight, ttl_reps, ttl_time, max_weight)
+INSERT INTO global_stats (uid, ttl_weight, ttl_reps, max_weight, ttl_workouts)
 SELECT
     1,
-    COALESCE(SUM(a.weight), 0),
-    COALESCE(SUM(a.reps), 0),
-    COALESCE(SUM(a.time), 0),
-    COALESCE(MAX(a.weight), 0)
+    COALESCE(SUM(a.weight), 0) AS ttl_weight,
+    COALESCE(SUM(a.reps), 0) AS ttl_reps,
+    COALESCE(MAX(a.weight), 0) AS max_weight,
+    COALESCE(COUNT(DISTINCT w.id), 0) AS ttl_workouts
 FROM approaches a
 JOIN workouts w ON a.wid = w.id
 WHERE w.uid = 1;

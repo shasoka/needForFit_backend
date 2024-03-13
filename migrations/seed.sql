@@ -52,3 +52,20 @@ SELECT
 FROM approaches a
 JOIN workouts w ON a.wid = w.id
 WHERE w.uid = 1;
+
+-- Добавление типов упражнений
+INSERT INTO exercise_types (name) VALUES
+    ('Legs'),
+    ('Chest'),
+    ('Back'),
+    ('Shoulders'),
+    ('Arms'),
+    ('Core');
+
+-- Обновление таблицы упражнений (exercises) с добавлением типов
+UPDATE exercises SET tid = 1 WHERE name IN ('Squats', 'Lunges', 'Leg Press', 'Calf Raises');
+UPDATE exercises SET tid = 2 WHERE name IN ('Bench Press', 'Push-Ups', 'Dips');
+UPDATE exercises SET tid = 3 WHERE name IN ('Deadlift', 'Dumbbell Row to Abdomen', 'Lat Pulldown', 'Pull-Ups');
+UPDATE exercises SET tid = 4 WHERE name IN ('Overhead Barbell Press', 'Triceps Extensions');
+UPDATE exercises SET tid = 5 WHERE name IN ('Hammer Curls', 'Hammer Curls for Biceps');
+UPDATE exercises SET tid = 6 WHERE name IN ('Plank', 'Crunches', 'Russian Twists', 'Reverse Crunches', 'Side Plank');

@@ -1,14 +1,14 @@
-from typing import List
-
-from src.database.models import Approach
 from src.schemas import MyBaseModel
 
 
-class ExerciseBase(MyBaseModel):
+class TypesRead(MyBaseModel):
+    id: int
+    name: str
+
+
+class ExerciseRead(MyBaseModel):
     name: str
     description: str
     image: str | None
-
-
-class ExerciseRead(ExerciseBase):
     id: int
+    exercise_type: TypesRead

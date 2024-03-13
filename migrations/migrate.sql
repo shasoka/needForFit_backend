@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS nff;
+
 CREATE DATABASE nff;
 
 \c nff;
@@ -24,11 +26,17 @@ CREATE TABLE IF NOT EXISTS global_stats (
     ttl_workouts INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS exercise_types (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS exercises (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    image VARCHAR(255)
+    image VARCHAR(255),
+    tid INTEGER REFERENCES exercise_types(id)
 );
 
 CREATE TABLE IF NOT EXISTS approaches (

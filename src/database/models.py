@@ -14,8 +14,19 @@ class Exercise(Base):
     name: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
     image: Mapped[str] = mapped_column(nullable=False)
+    tid: Mapped[int] = mapped_column(ForeignKey("exercise_types.id"))
 
     approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="exercise")
+    exercise_type: Mapped["ExerciseTypes"] = relationship("ExerciseTypes", back_populates="exercises")
+
+
+class ExerciseTypes(Base):
+    __tablename__ = "exercise_types"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
+
+    exercises: Mapped[List["Exercise"]] = relationship("Exercise", back_populates="exercise_type")
 
 
 class Workout(Base):

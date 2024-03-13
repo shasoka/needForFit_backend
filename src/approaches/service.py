@@ -4,11 +4,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from src.approaches.schemas import ApproachCreate, ApproachRead
-from src.database.models import Approach
+from src.database.models import Approach, Exercise
 
 
 async def get_approaches_by_wid_grouped_by_eid(session: AsyncSession, wid: int):
-    query = select(Approach).where(Approach.wid == wid).options(selectinload(Approach.exercise))
+    query = select(Approach).where(Approach.wid == wid).options(
+        selectinload(Approach.exercise)
+        .selectinload(Exercise.exercise_type)
+    )
     result = await session.execute(query)
     approaches = result.scalars().all()
 

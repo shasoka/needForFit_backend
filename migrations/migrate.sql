@@ -11,9 +11,16 @@ CREATE TABLE IF NOT EXISTS users (
     registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS workout_types (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS workouts (
     id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL DEFAULT 'New workout',
     uid INTEGER REFERENCES users(id),
+    tid INTEGER REFERENCES workout_types(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -33,12 +33,24 @@ class Workout(Base):
     __tablename__ = "workouts"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False, default="New workout")
     uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    tid: Mapped[int] = mapped_column(ForeignKey("workout_types.id"))
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="workout")
     user: Mapped["User"] = relationship("User", back_populates="workouts")
     stat: Mapped["LocalStats"] = relationship("LocalStats", back_populates="workout")
+    workout_type: Mapped["WorkoutTypes"] = relationship("WorkoutTypes", back_populates="workouts")
+
+
+class WorkoutTypes(Base):
+    __tablename__ = "workout_types"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
+
+    workouts: Mapped[List["Workout"]] = relationship("Workout", back_populates="workout_type")
 
 
 class Approach(Base):

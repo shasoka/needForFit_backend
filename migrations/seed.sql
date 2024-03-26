@@ -69,3 +69,18 @@ UPDATE exercises SET tid = 3 WHERE name IN ('Deadlift', 'Dumbbell Row to Abdomen
 UPDATE exercises SET tid = 4 WHERE name IN ('Overhead Barbell Press', 'Triceps Extensions');
 UPDATE exercises SET tid = 5 WHERE name IN ('Hammer Curls', 'Hammer Curls for Biceps');
 UPDATE exercises SET tid = 6 WHERE name IN ('Plank', 'Crunches', 'Russian Twists', 'Reverse Crunches', 'Side Plank');
+
+INSERT INTO workout_types (name) VALUES
+                                     ('Strength'),
+                                     ('Cardio'),
+                                     ('Whole body'),
+                                     ('Legs'),
+                                     ('Chest'),
+                                     ('Arms');
+
+UPDATE workouts SET tid = 1 WHERE id <= 3;
+UPDATE workouts SET tid = 2 WHERE id <= 6 AND id > 3;
+UPDATE workouts SET tid = 3 WHERE id <= 9 AND id > 6;
+UPDATE workouts SET tid = 4 WHERE id <= 12 AND id > 9;
+UPDATE workouts SET tid = 5 WHERE id <= 15 AND id > 12;
+UPDATE workouts SET tid = 6 WHERE id > 15;

@@ -1,9 +1,4 @@
-from src.schemas import MyBaseModel
-
-
-class TypesRead(MyBaseModel):
-    id: int
-    name: str
+from src.schemas import MyBaseModel, TypesRead
 
 
 class ExerciseRead(MyBaseModel):

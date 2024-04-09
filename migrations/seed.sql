@@ -70,13 +70,13 @@ UPDATE exercises SET tid = 4 WHERE name IN ('Overhead Barbell Press', 'Triceps E
 UPDATE exercises SET tid = 5 WHERE name IN ('Hammer Curls', 'Hammer Curls for Biceps');
 UPDATE exercises SET tid = 6 WHERE name IN ('Plank', 'Crunches', 'Russian Twists', 'Reverse Crunches', 'Side Plank');
 
-INSERT INTO workout_types (name) VALUES
-                                     ('Strength'),
-                                     ('Cardio'),
-                                     ('Whole body'),
-                                     ('Legs'),
-                                     ('Chest'),
-                                     ('Arms');
+INSERT INTO workout_types (name, uid) VALUES
+                                     ('Strength', 1),
+                                     ('Cardio', 1),
+                                     ('Whole body', 1),
+                                     ('Legs', 1),
+                                     ('Chest', 1),
+                                     ('Arms', 1);
 
 UPDATE workouts SET tid = 1 WHERE id <= 3;
 UPDATE workouts SET tid = 2 WHERE id <= 6 AND id > 3;

@@ -49,7 +49,9 @@ class WorkoutTypes(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(nullable=False)
+    uid: Mapped[int] = mapped_column(ForeignKey("users.id"))
 
+    user: Mapped["User"] = relationship("User", back_populates="workout_types")
     workouts: Mapped[List["Workout"]] = relationship("Workout", back_populates="workout_type")
 
 
@@ -75,6 +77,7 @@ class User(Base):
     password: Mapped[str] = mapped_column(nullable=False)
     registered_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
+    workout_types: Mapped[List["WorkoutTypes"]] = relationship("WorkoutTypes", back_populates="user")
     workouts: Mapped[List["Workout"]] = relationship("Workout", back_populates="user")
     stat: Mapped["GlobalStats"] = relationship("GlobalStats", back_populates="user")
 

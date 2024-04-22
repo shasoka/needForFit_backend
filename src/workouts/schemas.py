@@ -1,14 +1,11 @@
 import datetime
 
-from src.schemas import MyBaseModel, TypesRead, TypeCreate
+from src.schemas import MyBaseModel
 from src.statistics.schemas import LocalStatsRead
+from src.workout_types.schemas import WorkoutTypesRead
 
 
 class WorkoutBase(MyBaseModel):
-    uid: int
-
-
-class WorkoutTypesRead(TypesRead):
     uid: int
 
 
@@ -25,7 +22,3 @@ class WorkoutCreate(WorkoutBase):
 
 class WorkoutWithStatsRead(WorkoutRead):
     stat: LocalStatsRead | None
-
-
-class WorkoutTypeCreate(TypeCreate):
-    uid: int

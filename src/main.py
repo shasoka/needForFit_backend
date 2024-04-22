@@ -5,6 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 from src.database.router import router as db_router
 from src.exercises.router import router as exercise_router
 from src.workouts.router import router as workout_router
+from src.workout_types.router import router as workout_types_router
 from src.approaches.router import router as approach_router
 from src.users.router import router as user_router
 
@@ -26,5 +27,6 @@ async def root():
 app.include_router(db_router)
 app.include_router(exercise_router)
 app.include_router(workout_router)
+app.include_router(workout_types_router)
 app.include_router(approach_router)
 app.include_router(user_router)

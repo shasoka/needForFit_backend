@@ -5,13 +5,11 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.database import get_async_session
-from src.schemas import TypesRead
 from src.statistics.global_stats_service import GlobalStatsService
 from src.statistics.local_stats_service import LocalStatsService
 from src.workouts import service
-from src.workouts.schemas import WorkoutRead, WorkoutCreate, WorkoutWithStatsRead, WorkoutTypesRead, WorkoutTypeCreate
-
 from src.workouts import service as workout_service
+from src.workouts.schemas import WorkoutRead, WorkoutCreate, WorkoutWithStatsRead
 
 router = APIRouter(
     prefix="/api/workouts",
@@ -55,26 +53,3 @@ async def update_workout(wid: int, upd_workout: WorkoutRead, session: AsyncSessi
 @router.delete("/{wid}/", response_model=WorkoutRead)
 async def delete_workout(wid: int, session: AsyncSession = Depends(get_async_session)):
     return await service.delete_workout(session, wid)
-
-
-# ---------------- # ---------------- # ---------------- # ---------------- # ---------------- #
-
-
-@router.get("/types/{uid}", response_model=List[WorkoutTypesRead])
-async def get_types_with_ids(uid: int, session: AsyncSession = Depends(get_async_session)):
-    return await service.get_types_with_ids(session, uid)
-
-
-@router.post("/types/", response_model=WorkoutTypesRead)
-async def create_type(new_type: WorkoutTypeCreate, session: AsyncSession = Depends(get_async_session)):
-    return await service.create_type(session, new_type)
-
-
-@router.put("/types/{tid}/", response_model=WorkoutTypesRead)
-async def update_type(tid: int, upd_type: WorkoutTypesRead, session: AsyncSession = Depends(get_async_session)):
-    return await service.update_type(tid, upd_type, session)
-
-
-@router.delete("/types/{tid}/", response_model=WorkoutTypesRead)
-async def delete_type(tid: int, session: AsyncSession = Depends(get_async_session)):
-    return await service.delete_type(tid, session)

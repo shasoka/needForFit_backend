@@ -10,5 +10,5 @@ class TypesRead(MyBaseModel):
     name: str
 
 
-class TypeCreate(MyBaseModel):
+class TypesCreate(MyBaseModel):
     name: str

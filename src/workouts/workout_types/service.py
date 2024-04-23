@@ -9,6 +9,13 @@ from src.schemas import TypesCreate
 from src.workouts.workout_types.schemas import WorkoutTypesRead
 
 
+async def get_uid_by_tid(tid: int, session: AsyncSession):
+    stmt = select(WorkoutTypes.uid).where(WorkoutTypes.id == tid)
+    result = await session.execute(stmt)
+    uid = result.scalar()
+    return uid
+
+
 async def get_types_with_ids(session: AsyncSession, uid: int):
     types = await session.execute(select(WorkoutTypes).where(or_(WorkoutTypes.uid == uid, WorkoutTypes.uid == 1)))
     return types.scalars().all()

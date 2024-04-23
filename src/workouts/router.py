@@ -18,7 +18,10 @@ router = APIRouter(
 
 
 @router.get("/{uid}", response_model=List[WorkoutRead])
-async def get_workouts(uid: int, session: AsyncSession = Depends(get_async_session)):
+async def get_workouts(
+        uid: int,
+        session: AsyncSession = Depends(get_async_session)
+):
     return await service.get_workouts(session, uid)
 
 

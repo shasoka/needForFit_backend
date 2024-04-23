@@ -23,7 +23,7 @@ async def register_user(new_user: UserLogin, session: AsyncSession = Depends(get
     return await auth_service.register_user(session, new_user)
 
 
-@router.post("/token")
+@router.post("/login")
 async def login_user(
         form_data: OAuth2PasswordRequestForm = Depends(),
         session: AsyncSession = Depends(get_async_session)

@@ -23,11 +23,6 @@ async def root():
     return RedirectResponse("/docs")
 
 
-# @app.get("/items/")
-# async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
-#     return {"token": token}
-
-
 app.include_router(db_router)
 app.include_router(exercise_router)
 app.include_router(workout_router)

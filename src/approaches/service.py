@@ -4,7 +4,26 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from src.approaches.schemas import ApproachCreate, ApproachRead
-from src.database.models import Approach, Exercise
+from src.database.models import Approach, Exercise, Workout
+
+
+async def get_uid_by_aid(aid: int, session: AsyncSession) -> int:
+    stmt = select(Approach.wid).where(Approach.id == aid)
+    result = await session.execute(stmt)
+    wid = result.scalar()
+
+    if not wid:
+        raise HTTPException(status_code=404, detail="Approach not found")
+
+    # Найти uid (идентификатор пользователя) по wid (идентификатор тренировки)
+    stmt = select(Workout.uid).where(Workout.id == wid)
+    result = await session.execute(stmt)
+    uid = result.scalar()
+
+    if not uid:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return uid
 
 
 async def get_approaches_by_wid_grouped_by_eid(session: AsyncSession, wid: int):
@@ -40,26 +59,18 @@ async def create_approach(session: AsyncSession, new_approach: ApproachCreate):
     return approach
 
 
-async def update_approach(session: AsyncSession, approach_data: ApproachRead):
-    # Проверка, существует ли подход с указанным ID
-    upd_approach = approach_data.model_dump()
-    existing_approach = await session.get(Approach, upd_approach["id"])
-
-    if existing_approach is None:
-        raise HTTPException(status_code=404, detail="Approach not found")
-
-    # Обновление данных подхода
-    for key, value in upd_approach.items():
-        setattr(existing_approach, key, value)
-
-    try:
+async def update_approach(aid: int, upd_approach: ApproachRead, session: AsyncSession):
+    if approach := await session.get(Approach, aid):
+        approach.eid = upd_approach.eid
+        approach.wid = upd_approach.wid
+        approach.reps = upd_approach.reps
+        approach.weight = upd_approach.weight
+        approach.time = upd_approach.time
         await session.commit()
-        await session.refresh(existing_approach)
-    except Exception as e:
-        await session.rollback()
-        raise HTTPException(status_code=500, detail=f"Error updating approach: {str(e)}")
-
-    return existing_approach
+        await session.refresh(approach)
+        return approach
+    else:
+        raise HTTPException(status_code=404, detail="Entity with such id not found")
 
 
 async def delete_approach(session: AsyncSession, aid: int):

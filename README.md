@@ -20,8 +20,11 @@
    DB_NAME=nff
    DB_USER=<postgesql username>
    DB_PASS=<postgresql password>
+
+   JWT_SECRET=<sha-256 hashed string>
+   JWT_ALG=HS256
    ```
-   По дефолту хостом является ```localhost```, а портом - ```5432``` (смотрите ```example.env```)
+   По дефолту хостом является ```localhost```, а портом - ```5432``` (смотрите ```example.env```). Хэш можно получить где-то здесь: https://emn178.github.io/online-tools/sha256.html.
 3. Создаем виртуальное окружение и активируем его:
    ```
    python -m venv venv

@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.database import get_async_session
-from src.workout_types import service
-from src.workout_types.schemas import WorkoutTypesRead, WorkoutTypeCreate
+from src.workouts.workout_types import service
+from src.workouts.workout_types.schemas import WorkoutTypesRead, WorkoutTypeCreate
 
 router = APIRouter(
     prefix="/api/workout_types",

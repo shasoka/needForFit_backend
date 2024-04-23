@@ -2,8 +2,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.approaches.service import get_approaches_by_wid_grouped_by_eid
 from src.database.models import LocalStats
-from src.statistics.global_stats_service import GlobalStatsService
-from src.workouts import service as workout_service
 
 
 class LocalStatsService:

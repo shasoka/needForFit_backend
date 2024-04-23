@@ -15,3 +15,6 @@ DB_PASS = os.environ.get("DB_PASS")
 # Константы конфигурации для таблицы workout_types
 
 TYPES_PRESET = 6
+
+JWT_SECRET = os.environ.get("JWT_SECRET")
+JWT_ALG = os.environ.get("JWT_ALG")

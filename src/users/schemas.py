@@ -12,6 +12,11 @@ class UserRead(MyBaseModel):
     registered_at: datetime.datetime
 
 
+class UserLogin(MyBaseModel):
+    username: str
+    password: str
+
+
 class UserWithStats(UserRead):
     stat: GlobalStatsRead
 

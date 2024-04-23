@@ -1,6 +1,7 @@
 -- Добавление пользователей
 INSERT INTO users (username, password) VALUES
-    ('admin', 'admin_password');
+    ('admin', '$2b$12$0t9enudPMHYmlnRI04XNq.pA272KnUi.BD22yo46TjfHgXGhkC2dy');
+    -- admin;admin
 
 -- Добавление упражнений
 INSERT INTO exercises (name, description, image) VALUES

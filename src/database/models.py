@@ -73,7 +73,7 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(nullable=False)
+    username: Mapped[str] = mapped_column(nullable=False, unique=True)
     password: Mapped[str] = mapped_column(nullable=False)
     registered_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 

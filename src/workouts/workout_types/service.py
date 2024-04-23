@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.config import TYPES_PRESET
 from src.database.models import Workout, WorkoutTypes
 from src.schemas import TypesCreate
-from src.workout_types.schemas import WorkoutTypesRead
+from src.workouts.workout_types.schemas import WorkoutTypesRead
 
 
 async def get_types_with_ids(session: AsyncSession, uid: int):

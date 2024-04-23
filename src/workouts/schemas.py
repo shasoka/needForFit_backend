@@ -2,7 +2,7 @@ import datetime
 
 from src.schemas import MyBaseModel
 from src.statistics.schemas import LocalStatsRead
-from src.workout_types.schemas import WorkoutTypesRead
+from src.workouts.workout_types.schemas import WorkoutTypesRead
 
 
 class WorkoutBase(MyBaseModel):

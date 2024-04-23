@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from src.database.models import Workout, LocalStats, Approach
-from src.workout_types.schemas import WorkoutTypesRead
+from src.workouts.workout_types.schemas import WorkoutTypesRead
 from src.workouts.schemas import WorkoutCreate, WorkoutRead
 
 

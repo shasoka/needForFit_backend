@@ -72,7 +72,7 @@ async def delete_approach(
     return await service.delete_approach(session, aid)
 
 
-@router.delete("/{wid}/{eid}", response_model=List[ApproachRead])
+@router.delete("/{wid}/{eid}", response_model=ApproachGrouped)
 async def delete_exercise_from_workout(
         wid: int,
         eid: int,

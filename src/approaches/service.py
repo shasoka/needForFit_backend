@@ -96,4 +96,10 @@ async def delete_exercise_from_workout(session: AsyncSession, wid: int, eid: int
     await session.commit()
 
     deleted_approaches = existing_approaches.scalars().all()
-    return deleted_approaches
+
+    eid = deleted_approaches[0].eid
+    exercise = await session.execute(select(Exercise).options(selectinload(Exercise.exercise_type)).where(Exercise.id == eid))
+
+    grouped_exercise = {"exercise": exercise.scalars().first(), "approaches": deleted_approaches}
+
+    return grouped_exercise

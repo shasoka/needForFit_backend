@@ -39,7 +39,7 @@ async def login_user(
     access_token = auth_service.create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
-    return Token(access_token=access_token, token_type="bearer")
+    return Token(access_token=access_token, token_type="bearer", uid=user.id)
 
 
 @router.get("/{uid}", response_model=UserRead)

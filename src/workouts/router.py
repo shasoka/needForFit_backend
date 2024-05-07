@@ -97,7 +97,7 @@ async def update_workout(
         # Если uid, полученный из wid в адресе запроса не равен uid, который лежит в теле запроса или
         # если uid, полученный из wid в адресе запроса не равен uid текущего юзера
         raise HTTPException(status_code=403, detail="Access forbidden")
-    if wid != upd_workout.wid:
+    if wid != upd_workout.id:
         raise HTTPException(status_code=404, detail=f"Wid from route doesn't match wid from payload")
 
     return await service.update_workout(wid, upd_workout, session)

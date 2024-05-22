@@ -17,6 +17,12 @@ CREATE TABLE IF NOT EXISTS workout_types (
     uid INTEGER REFERENCES users(id)
 );
 
+CREATE TABLE IF NOT EXISTS day_phrase (
+    id SERIAL PRIMARY KEY,
+    phrase VARCHAR(255) NOT NULL,
+    uid INTEGER REFERENCES users(id) UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS workouts (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL DEFAULT 'New workout',

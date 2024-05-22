@@ -12,9 +12,8 @@ DB_NAME = os.environ.get("DB_NAME")
 DB_USER = os.environ.get("DB_USER")
 DB_PASS = os.environ.get("DB_PASS")
 
-# Константы конфигурации для таблицы workout_types
-
-TYPES_PRESET = 6
+# Константы конфигурации для таблиц
+TYPES_PRESET = 6  # workout_types
 
 JWT_SECRET = os.environ.get("JWT_SECRET")
 JWT_ALG = os.environ.get("JWT_ALG")

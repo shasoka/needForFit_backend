@@ -6,6 +6,7 @@ from src.approaches.router import router as approach_router
 from src.database.router import router as db_router
 from src.exercises.router import router as exercise_router
 from src.users.router import router as user_router
+from src.users.phrases.router import router as phrases_router
 from src.workouts.router import router as workout_router
 from src.workouts.workout_types.router import router as workout_types_router
 
@@ -29,3 +30,4 @@ app.include_router(workout_router)
 app.include_router(workout_types_router)
 app.include_router(approach_router)
 app.include_router(user_router)
+app.include_router(phrases_router)

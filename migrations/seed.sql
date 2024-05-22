@@ -79,6 +79,11 @@ INSERT INTO workout_types (name, uid) VALUES
                                      ('Chest', 1),
                                      ('Arms', 1);
 
+INSERT INTO day_phrase (phrase, uid) VALUES
+                                         ('First phrase', null),
+                                         ('Second phrase', null),
+                                         ('Third phrase', null);
+
 UPDATE workouts SET tid = 1 WHERE id <= 3;
 UPDATE workouts SET tid = 2 WHERE id <= 6 AND id > 3;
 UPDATE workouts SET tid = 3 WHERE id <= 9 AND id > 6;

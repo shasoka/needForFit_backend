@@ -55,6 +55,16 @@ class WorkoutTypes(Base):
     workouts: Mapped[List["Workout"]] = relationship("Workout", back_populates="workout_type")
 
 
+class DayPhrase(Base):
+    __tablename__ = "day_phrase"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    phrase: Mapped[str] = mapped_column(nullable=False)
+    uid: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=True, unique=True)
+
+    user: Mapped["User"] = relationship("User", back_populates="day_phrase")
+
+
 class Approach(Base):
     __tablename__ = "approaches"
 
@@ -78,6 +88,7 @@ class User(Base):
     registered_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     workout_types: Mapped[List["WorkoutTypes"]] = relationship("WorkoutTypes", back_populates="user")
+    day_phrase: Mapped[List["DayPhrase"]] = relationship("DayPhrase", back_populates="user")
     workouts: Mapped[List["Workout"]] = relationship("Workout", back_populates="user")
     stat: Mapped["GlobalStats"] = relationship("GlobalStats", back_populates="user")
 

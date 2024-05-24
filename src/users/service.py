@@ -1,3 +1,4 @@
+import os
 import secrets
 
 from PIL import Image
@@ -25,7 +26,7 @@ async def upload_photo(uid: int, file: UploadFile, session: AsyncSession):
     if extension not in ["jpg", "jpeg", "png"]:
         raise HTTPException(status_code=415, detail="Unsupported media format")
 
-    token_name = "_" + secrets.token_hex(16) + "." + extension
+    token_name = secrets.token_hex(16) + "." + extension
     file_path = "./static/images/users/" + token_name
 
     # Запись полученных байтов в файл
@@ -48,6 +49,27 @@ async def upload_photo(uid: int, file: UploadFile, session: AsyncSession):
     # Получение и возврат обновленного пользователя
     updated_user = await get_user_by_uid(uid, session)
     return updated_user
+
+
+async def delete_photo(uid: int, session: AsyncSession):
+    user = await get_user_by_uid(uid, session)
+    if "profile_picture_placeholder" not in user.profile_picture:
+        path = "." + user.profile_picture.split(SERVER_HOST+":"+SERVER_PORT)[1]
+        # Удаление файла
+        os.remove(path)
+        # Обновление записи пользователя в базе данных
+        await session.execute(
+            update(User).
+            where(User.id == uid).
+            values(profile_picture=SERVER_HOST+":"+SERVER_PORT+"/static/images/users/profile_picture_placeholder.png")
+        )
+        await session.commit()
+
+        # Получение и возврат обновленного пользователя
+        updated_user = await get_user_by_uid(uid, session)
+        return updated_user
+    else:
+        raise HTTPException(status_code=403, detail="Access denied for deleting default profile picture")
 
 
 async def get_user_by_username(username: str, session: AsyncSession) -> User:

@@ -67,6 +67,17 @@ async def upload_photo(
     return await service.upload_photo(uid, file, session)
 
 
+@router.delete("/{uid}/picture/delete", response_model=UserRead)
+async def delete_photo(
+        uid: int,
+        current_user: User = Depends(auth_service.current_user_getter_strict),
+        session: AsyncSession = Depends(get_async_session)
+):
+    if current_user.id != uid:
+        raise HTTPException(status_code=403, detail="Access forbidden")
+    return await service.delete_photo(uid, session)
+
+
 @router.get("/stats/{uid}", response_model=UserWithWorkoutsAndStats)
 async def get_user_with_stats(
         uid: int,

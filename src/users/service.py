@@ -49,6 +49,17 @@ async def upload_photo(uid: int, file: UploadFile, session: AsyncSession):
 
     # Запись полученных байтов в файл
     file_content = await file.read()
+    if len(file_content) > 1 * 1024 * 1024:  # 1,00 MB
+        raise HTTPException(status_code=413, detail="File size exceeds 1 MB")
+
+    # Получение текущего пользователя
+    user = await get_user_by_uid(uid, session)
+
+    # Проверка на наличие "profile_picture_placeholder" в имени файла
+    if "profile_picture_placeholder" not in user.profile_picture:
+        old_file_path = "." + user.profile_picture.split(SERVER_HOST+":"+SERVER_PORT)[1]
+        os.remove(old_file_path)
+
     with open(file_path, "wb") as f:
         f.write(file_content)
     # Ресайз изображения

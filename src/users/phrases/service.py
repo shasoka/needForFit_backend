@@ -8,7 +8,7 @@ from src.database.models import DayPhrase
 from src.users.phrases.schemas import DayPhraseCreate, DayPhraseUpdate
 
 
-async def get_day_phrase(uid: int, session: AsyncSession):
+async def get_day_phrase(session: AsyncSession, uid: int = 0):
     # Попытка найти фразу, которая соответствует переданному uid
     user_phrase_result = await session.execute(select(DayPhrase).where(DayPhrase.uid == uid))
     user_phrase = user_phrase_result.scalars().first()

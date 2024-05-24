@@ -45,7 +45,7 @@ async def login_user(
 @router.get("/{uid}", response_model=UserRead)
 async def get_user(
         uid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(auth_service.current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != uid:
@@ -56,7 +56,7 @@ async def get_user(
 @router.get("/stats/{uid}", response_model=UserWithWorkoutsAndStats)
 async def get_user_with_stats(
         uid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(auth_service.current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != uid:

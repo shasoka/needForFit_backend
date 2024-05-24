@@ -7,7 +7,7 @@ from src.database.database import get_async_session
 from src.database.models import User
 from src.workouts.workout_types import service
 from src.workouts.workout_types.schemas import WorkoutTypesRead, WorkoutTypeCreate
-from src.auth import service as auth_service
+from src.auth.service import current_user_getter_strict
 
 
 router = APIRouter(
@@ -19,7 +19,7 @@ router = APIRouter(
 @router.get("/{uid}/", response_model=List[WorkoutTypesRead])
 async def get_types_with_ids(
         uid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != uid:
@@ -31,7 +31,7 @@ async def get_types_with_ids(
 @router.post("/", response_model=WorkoutTypesRead)
 async def create_type(
         new_type: WorkoutTypeCreate,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != new_type.uid:
@@ -44,7 +44,7 @@ async def create_type(
 async def update_type(
         tid: int,
         upd_type: WorkoutTypesRead,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid = await service.get_uid_by_tid(tid, session)
@@ -57,7 +57,7 @@ async def update_type(
 @router.delete("/{tid}/", response_model=WorkoutTypesRead)
 async def delete_type(
         tid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid = await service.get_uid_by_tid(tid, session)

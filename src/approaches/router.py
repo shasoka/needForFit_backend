@@ -7,7 +7,7 @@ from src.approaches import service
 from src.approaches.schemas import ApproachRead, ApproachCreate, ApproachGrouped
 from src.database.database import get_async_session
 from src.database.models import User
-from src.auth import service as auth_service
+from src.auth.service import current_user_getter_strict
 from src.workouts import service as workout_service
 
 
@@ -17,7 +17,7 @@ router = APIRouter(prefix="/api/approaches", tags=["Approaches"])
 @router.get("/{wid}", response_model=List[ApproachGrouped])
 async def get_approaches_by_wid_grouped(
         wid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid = await workout_service.get_uid_by_wid(wid, session)
@@ -30,7 +30,7 @@ async def get_approaches_by_wid_grouped(
 @router.post("/", response_model=ApproachRead)
 async def create_approach(
         new_approach: ApproachCreate,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid = await workout_service.get_uid_by_wid(new_approach.wid, session)
@@ -44,7 +44,7 @@ async def create_approach(
 async def update_approach(
         aid: int,
         upd_approach: ApproachRead,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid_from_wid = await workout_service.get_uid_by_wid(upd_approach.wid, session)
@@ -62,7 +62,7 @@ async def update_approach(
 @router.delete("/{aid}", response_model=ApproachRead)
 async def delete_approach(
         aid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid = await service.get_uid_by_aid(aid, session)
@@ -76,7 +76,7 @@ async def delete_approach(
 async def delete_exercise_from_workout(
         wid: int,
         eid: int,
-        current_user: User = Depends(auth_service.get_current_user),
+        current_user: User = Depends(current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     uid = await workout_service.get_uid_by_wid(wid, session)

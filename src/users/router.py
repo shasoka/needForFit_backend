@@ -55,6 +55,17 @@ async def get_user(
     return await service.get_user_by_uid(uid, session)
 
 
+@router.get("/stats/{uid}", response_model=UserWithWorkoutsAndStats)
+async def get_user_with_stats(
+        uid: int,
+        current_user: User = Depends(auth_service.current_user_getter_strict),
+        session: AsyncSession = Depends(get_async_session)
+):
+    if current_user.id != uid:
+        raise HTTPException(status_code=403, detail="Access forbidden")
+    return await service.get_user_with_stats_and_workouts(session, uid)
+
+
 @router.post("/{uid}/picture/upload", response_model=UserRead)
 async def upload_photo(
         uid: int,
@@ -78,12 +89,26 @@ async def delete_photo(
     return await service.delete_photo(uid, session)
 
 
-@router.get("/stats/{uid}", response_model=UserWithWorkoutsAndStats)
-async def get_user_with_stats(
+@router.post("/{uid}/login/change", response_model=UserRead)
+async def change_login(
         uid: int,
+        new_login: str,
         current_user: User = Depends(auth_service.current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != uid:
         raise HTTPException(status_code=403, detail="Access forbidden")
-    return await service.get_user_with_stats_and_workouts(session, uid)
+    return await service.change_login(uid, new_login, session)
+
+
+@router.post("/{uid}/password/change", response_model=UserRead)
+async def change_password(
+        uid: int,
+        old_password: str,
+        new_password: str,
+        current_user: User = Depends(auth_service.current_user_getter_strict),
+        session: AsyncSession = Depends(get_async_session)
+):
+    if current_user.id != uid:
+        raise HTTPException(status_code=403, detail="Access forbidden")
+    return await service.change_password(uid, old_password, new_password, session)

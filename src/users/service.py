@@ -4,11 +4,13 @@ import secrets
 from PIL import Image
 from fastapi import HTTPException, UploadFile
 from sqlalchemy import select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from src.config import SERVER_HOST, SERVER_PORT
 from src.database.models import User, Workout
+from src.auth import service as auth_service
 
 
 async def get_user_by_uid(uid: int, session: AsyncSession):
@@ -19,6 +21,22 @@ async def get_user_by_uid(uid: int, session: AsyncSession):
         return user
     else:
         raise HTTPException(status_code=404, detail="User not found")
+
+
+async def get_user_by_username(username: str, session: AsyncSession) -> User:
+    query = select(User).where(User.username == username)
+    result = await session.execute(query)
+    user = result.scalar()
+    if user is not None:
+        return user
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
+
+async def get_user_with_stats_and_workouts(session: AsyncSession, uid: int):
+    user = await session.execute(select(User).where(User.id == uid).options(selectinload(User.stat)))
+    workouts = await session.execute(select(Workout).where(Workout.uid == uid).options(selectinload(Workout.stat), selectinload(Workout.workout_type)))
+    return {"user": user.scalar(), "workouts": workouts.scalars().all()}
 
 
 async def upload_photo(uid: int, file: UploadFile, session: AsyncSession):
@@ -47,8 +65,7 @@ async def upload_photo(uid: int, file: UploadFile, session: AsyncSession):
     await session.commit()
 
     # Получение и возврат обновленного пользователя
-    updated_user = await get_user_by_uid(uid, session)
-    return updated_user
+    return await get_user_by_uid(uid, session)
 
 
 async def delete_photo(uid: int, session: AsyncSession):
@@ -66,23 +83,36 @@ async def delete_photo(uid: int, session: AsyncSession):
         await session.commit()
 
         # Получение и возврат обновленного пользователя
-        updated_user = await get_user_by_uid(uid, session)
-        return updated_user
+        return await get_user_by_uid(uid, session)
     else:
         raise HTTPException(status_code=403, detail="Access denied for deleting default profile picture")
 
 
-async def get_user_by_username(username: str, session: AsyncSession) -> User:
-    query = select(User).where(User.username == username)
-    result = await session.execute(query)
-    user = result.scalar()
-    if user is not None:
-        return user
-    else:
-        raise HTTPException(status_code=404, detail="User not found")
+async def change_login(uid: int, new_login: str, session: AsyncSession):
+    try:
+        await session.execute(
+            update(User).
+            where(User.id == uid).
+            values(username=new_login)
+        )
+        await session.commit()
+
+        # Получение и возврат обновленного пользователя
+        return await get_user_by_uid(uid, session)
+    except IntegrityError:
+        raise HTTPException(status_code=409, detail="Username already in use")
 
 
-async def get_user_with_stats_and_workouts(session: AsyncSession, uid: int):
-    user = await session.execute(select(User).where(User.id == uid).options(selectinload(User.stat)))
-    workouts = await session.execute(select(Workout).where(Workout.uid == uid).options(selectinload(Workout.stat), selectinload(Workout.workout_type)))
-    return {"user": user.scalar(), "workouts": workouts.scalars().all()}
+async def change_password(uid: int, old_password: str, new_password: str, session: AsyncSession):
+    if auth_service.verify_password(old_password, (await get_user_by_uid(uid, session)).password):
+        await session.execute(
+            update(User).
+            where(User.id == uid).
+            values(password=auth_service.hash_password(new_password))
+        )
+        await session.commit()
+
+        # Получение и возврат обновленного пользователя
+        return await get_user_by_uid(uid, session)
+
+    raise HTTPException(status_code=403, detail="Incorrect old password")

@@ -9,6 +9,7 @@ from src.workouts.schemas import WorkoutWithStatsRead
 class UserRead(MyBaseModel):
     id: int
     username: str
+    profile_picture: str
     registered_at: datetime.datetime
 
 

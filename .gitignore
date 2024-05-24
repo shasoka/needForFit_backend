@@ -2,4 +2,7 @@
 **/__pycache__
 **/venv
 
+/static/images/users/*
+!/static/images/users/profile_picture_placeholder.png
+
 .env

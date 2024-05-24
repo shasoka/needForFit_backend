@@ -5,6 +5,7 @@ from sqlalchemy import ForeignKey, JSON
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from src.models import Base
+from src.config import SERVER_HOST, SERVER_PORT
 
 
 class Exercise(Base):
@@ -85,6 +86,9 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(nullable=False, unique=True)
     password: Mapped[str] = mapped_column(nullable=False)
+    profile_picture: Mapped[str] = mapped_column(
+        nullable=False,
+        default=SERVER_HOST+":"+SERVER_PORT+"/static/images/users/profile_picture_placeholder.png")
     registered_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     workout_types: Mapped[List["WorkoutTypes"]] = relationship("WorkoutTypes", back_populates="user")

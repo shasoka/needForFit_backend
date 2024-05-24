@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    profile_picture VARCHAR(255) NOT NULL DEFAULT '127.0.0.1:8000/static/images/users/profile_picture_placeholder.png',
     registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

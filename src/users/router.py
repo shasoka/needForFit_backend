@@ -1,15 +1,18 @@
+import secrets
+
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, File, UploadFile
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
+from PIL import Image
 
 from src.database.database import get_async_session
 from src.database.models import User
 from src.users import service
 from src.auth import service as auth_service
 from src.auth.schemas import Token
-from src.auth.service import ACCESS_TOKEN_EXPIRE_MINUTES
+from src.config import TOKEN_EXPIRATION
 from src.users.schemas import UserRead, UserWithWorkoutsAndStats, UserLogin
 
 router = APIRouter(
@@ -28,14 +31,13 @@ async def login_user(
         form_data: OAuth2PasswordRequestForm = Depends(),
         session: AsyncSession = Depends(get_async_session)
 ):
-    user: User = await auth_service.authenticate_user(form_data.username, form_data.password, session)
-    if not user:
+    if not (user := await auth_service.authenticate_user(form_data.username, form_data.password, session)):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token_expires = timedelta(minutes=TOKEN_EXPIRATION)
     access_token = auth_service.create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
@@ -51,6 +53,18 @@ async def get_user(
     if current_user.id != uid:
         raise HTTPException(status_code=403, detail="Access forbidden")
     return await service.get_user_by_uid(uid, session)
+
+
+@router.post("/{uid}/picture/upload", response_model=UserRead)
+async def upload_photo(
+        uid: int,
+        file: UploadFile = File(...),
+        current_user: User = Depends(auth_service.current_user_getter_strict),
+        session: AsyncSession = Depends(get_async_session)
+):
+    if current_user.id != uid:
+        raise HTTPException(status_code=403, detail="Access forbidden")
+    return await service.upload_photo(uid, file, session)
 
 
 @router.get("/stats/{uid}", response_model=UserWithWorkoutsAndStats)

@@ -9,8 +9,12 @@ from src.users.router import router as user_router
 from src.users.phrases.router import router as phrases_router
 from src.workouts.router import router as workout_router
 from src.workouts.workout_types.router import router as workout_types_router
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI(title="Need for fit")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(CORSMiddleware,
                    allow_origins=["*"],

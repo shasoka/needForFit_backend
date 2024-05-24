@@ -14,7 +14,6 @@ from src.users import service as user_service
 from src.users.schemas import UserLogin
 from src.users.service import get_user_by_username
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/users/login", auto_error=False)  # Не будет выбрасываться 401 автомаатически
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

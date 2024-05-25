@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS nff;
 
-CREATE DATABASE nff;
+CREATE DATABASE nff WITH ENCODING 'UTF8';
 
 \c nff;
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS approaches (
 
 CREATE TABLE IF NOT EXISTS local_stats (
     id SERIAL PRIMARY KEY,
-    wid INTEGER REFERENCES workouts(id),
+    wid INTEGER REFERENCES workouts(id) UNIQUE,
     exercises_count INTEGER,
     max_weights JSONB,
     max_reps JSONB,

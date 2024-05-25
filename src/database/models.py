@@ -114,7 +114,7 @@ class LocalStats(Base):
     __tablename__ = "local_stats"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    wid: Mapped[int] = mapped_column(ForeignKey("workouts.id"))
+    wid: Mapped[int] = mapped_column(ForeignKey("workouts.id"), unique=True)
     exercises_count: Mapped[int] = mapped_column(nullable=True)
     max_weights: Mapped[dict] = mapped_column(JSON, nullable=True)
     max_reps: Mapped[dict] = mapped_column(JSON, nullable=True)

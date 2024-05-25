@@ -9,10 +9,12 @@
 
 1. Разворачиваем БД. Для этого:
    ```
+   SET PGCLIENTENCODING=utf-8
+   chcp 65001
    psql -U postgres -h localhost -f .\migrations\migrate.sql -f .\migrations\seed.sql
    ```
    Скрипт ```migrate.sql``` создает БД с именем nff и девятью таблицами. 
-   Скрипт ```seed.sql``` заполняет таблицы плейсхолдерами.
+   Скрипт ```seed.sql``` заполняет таблицы пресетами. Для доступа к приложению создается один пользователь: `admin`:`admin`
 2. Создаем файл с именем ```.env```. Его содержимое должно иметь следующую структуру:
    ```
    DB_HOST=<postgresql host>

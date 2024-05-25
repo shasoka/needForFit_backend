@@ -5,27 +5,26 @@ INSERT INTO users (username, password) VALUES
 
 -- Добавление упражнений
 INSERT INTO exercises (name, description, image) VALUES
-    ('Squats', 'Basic exercise for the lower body', NULL),
-    ('Bench Press', 'Exercise for the upper body', NULL),
-    ('Deadlift', 'Complex exercise for the whole body', NULL),
-    ('Overhead Barbell Press', 'Exercise for shoulders and triceps', NULL),
-    ('Pull-Ups', 'Exercise for the upper body', NULL),
-    ('Plank', 'Exercise for core stabilization', NULL),
-    ('Hammer Curls', 'Isolation exercise for biceps', NULL),
-    ('Lunges', 'Leg workout, emphasis on glutes and quadriceps', NULL),
-    ('Dumbbell Row to Abdomen', 'Exercise for back and biceps', NULL),
-    ('Push-Ups', 'Chest and triceps workout', NULL),
-    ('Crunches', 'Abdominal workout', NULL),
-    ('Leg Press', 'Leg workout, emphasis on thighs and glutes', NULL),
-    ('Calf Raises', 'Isolation exercise for calves', NULL),
-    ('Dips', 'Triceps and chest workout', NULL),
-    ('Russian Twists', 'Workout for oblique abdominal muscles', NULL),
-    ('Lat Pulldown', 'Back and biceps workout', NULL),
-    ('Hammer Curls for Biceps', 'Isolation exercise for biceps', NULL),
-    ('Reverse Crunches', 'Lower abdominal workout', NULL),
-    ('Side Plank', 'Exercise for core stabilization', NULL),
-    ('Triceps Extensions', 'Isolation exercise for triceps', NULL);
-
+    ('Приседания', 'Базовое упражнение для нижней части тела', NULL),
+    ('Жим лежа', 'Упражнение для верхней части тела', NULL),
+    ('Становая тяга', 'Комплексное упражнение для всего тела', NULL),
+    ('Жим штанги над головой', 'Упражнение для плеч и трицепса', NULL),
+    ('Подтягивания', 'Упражнение для верхней части тела', NULL),
+    ('Планка', 'Упражнение для стабилизации ядра', NULL),
+    ('Молотки', 'Изолирующее упражнение для бицепса', NULL),
+    ('Выпады', 'Тренировка ног, акцент на ягодицы и квадрицепсы', NULL),
+    ('Тяга гантели к животу', 'Упражнение для спины и бицепса', NULL),
+    ('Отжимания', 'Тренировка груди и трицепса', NULL),
+    ('Скручивания', 'Тренировка пресса', NULL),
+    ('Лег-пресс', 'Тренировка ног, акцент на бедра и ягодицы', NULL),
+    ('Подъемы на носки', 'Изолирующее упражнение для икр', NULL),
+    ('Дипсы', 'Тренировка трицепса и груди', NULL),
+    ('Русские скручивания', 'Тренировка для косых мышц живота', NULL),
+    ('Тяга штанги к груди в наклоне', 'Тренировка спины и бицепса', NULL),
+    ('Молотки для бицепса', 'Изолирующее упражнение для бицепса', NULL),
+    ('Обратные скручивания', 'Тренировка нижнего пресса', NULL),
+    ('Боковая планка', 'Упражнение для стабилизации ядра', NULL),
+    ('Разгибание рук на блоке', 'Изолирующее упражнение для трицепса', NULL);
 
 -- Добавление тренировок
 INSERT INTO workouts (uid)
@@ -54,35 +53,76 @@ FROM approaches a
 JOIN workouts w ON a.wid = w.id
 WHERE w.uid = 1;
 
+-- Вычисляем количество упражнений, максимальный вес, максимальное количество повторений и общий вес для каждой тренировки
+WITH stats AS (
+    SELECT
+        wid,
+        COUNT(DISTINCT eid) AS exercises_count,
+        jsonb_object_agg(name, max_weight) AS max_weights,
+        jsonb_object_agg(name, max_reps) AS max_reps,
+        SUM(weight) AS total_weight
+    FROM (
+        SELECT
+            approaches.wid,
+            approaches.eid,
+            exercises.name,
+			approaches.weight,
+            MAX(approaches.weight) AS max_weight,
+            MAX(approaches.reps) AS max_reps
+        FROM approaches
+        JOIN exercises ON approaches.eid = exercises.id
+        GROUP BY approaches.wid, approaches.eid, exercises.name, approaches.weight
+    ) AS subquery
+    GROUP BY wid
+),
+
+-- Вычисляем упражнение с максимальным количеством подходов для каждой тренировки
+favourite_exercise AS (
+    SELECT
+        wid,
+        eid,
+        ROW_NUMBER() OVER(PARTITION BY wid ORDER BY COUNT(*) DESC) as rn
+    FROM approaches
+    GROUP BY wid, eid
+)
+
+-- Вставляем вычисленные статистики в таблицу local_stats
+INSERT INTO local_stats (wid, exercises_count, max_weights, max_reps, favorite_exercise, total_weight)
+SELECT
+    s.wid,
+    s.exercises_count,
+    s.max_weights,
+    s.max_reps,
+    (SELECT name FROM exercises WHERE id = f.eid),
+    s.total_weight
+FROM stats s
+JOIN favourite_exercise f ON s.wid = f.wid AND f.rn = 1;
+
 -- Добавление типов упражнений
 INSERT INTO exercise_types (name) VALUES
-    ('Legs'),
-    ('Chest'),
-    ('Back'),
-    ('Shoulders'),
-    ('Arms'),
-    ('Core');
+    ('Ноги'),
+    ('Грудь'),
+    ('Спина'),
+    ('Плечи'),
+    ('Руки'),
+    ('Торс');
 
 -- Обновление таблицы упражнений (exercises) с добавлением типов
-UPDATE exercises SET tid = 1 WHERE name IN ('Squats', 'Lunges', 'Leg Press', 'Calf Raises');
-UPDATE exercises SET tid = 2 WHERE name IN ('Bench Press', 'Push-Ups', 'Dips');
-UPDATE exercises SET tid = 3 WHERE name IN ('Deadlift', 'Dumbbell Row to Abdomen', 'Lat Pulldown', 'Pull-Ups');
-UPDATE exercises SET tid = 4 WHERE name IN ('Overhead Barbell Press', 'Triceps Extensions');
-UPDATE exercises SET tid = 5 WHERE name IN ('Hammer Curls', 'Hammer Curls for Biceps');
-UPDATE exercises SET tid = 6 WHERE name IN ('Plank', 'Crunches', 'Russian Twists', 'Reverse Crunches', 'Side Plank');
+UPDATE exercises SET tid = 1 WHERE name IN ('Приседания', 'Выпады', 'Лег-пресс', 'Подъемы на носки');
+UPDATE exercises SET tid = 2 WHERE name IN ('Жим лежа', 'Отжимания', 'Дипсы');
+UPDATE exercises SET tid = 3 WHERE name IN ('Становая тяга', 'Тяга гантели к животу', 'Тяга штанги к груди в наклоне', 'Подтягивания');
+UPDATE exercises SET tid = 4 WHERE name IN ('Жим штанги над головой', 'Разгибание рук на блоке');
+UPDATE exercises SET tid = 5 WHERE name IN ('Молотки', 'Молотки для бицепса');
+UPDATE exercises SET tid = 6 WHERE name IN ('Планка', 'Скручивания', 'Русские скручивания', 'Обратные скручивания', 'Боковая планка');
 
+-- Добавление типов тренировок --
 INSERT INTO workout_types (name, uid) VALUES
-                                     ('Strength', 1),
-                                     ('Cardio', 1),
-                                     ('Whole body', 1),
-                                     ('Legs', 1),
-                                     ('Chest', 1),
-                                     ('Arms', 1);
-
-INSERT INTO day_phrase (phrase, uid) VALUES
-                                         ('First phrase', null),
-                                         ('Second phrase', null),
-                                         ('Third phrase', null);
+                                     ('Силовая', 1),
+                                     ('Кардио', 1),
+                                     ('На все тело', 1),
+                                     ('Ноги', 1),
+                                     ('Грудь', 1),
+                                     ('Руки', 1);
 
 UPDATE workouts SET tid = 1 WHERE id <= 3;
 UPDATE workouts SET tid = 2 WHERE id <= 6 AND id > 3;
@@ -90,3 +130,12 @@ UPDATE workouts SET tid = 3 WHERE id <= 9 AND id > 6;
 UPDATE workouts SET tid = 4 WHERE id <= 12 AND id > 9;
 UPDATE workouts SET tid = 5 WHERE id <= 15 AND id > 12;
 UPDATE workouts SET tid = 6 WHERE id > 15;
+
+-- Добавление фраз дня --
+INSERT INTO day_phrase (phrase, uid) VALUES
+                                         ('Запомни: всего одна ошибка – и ты ошибся', null),
+                                         ('Никогда не сдавайтесь, идите к своей цели! А если будет сложно – сдавайтесь', null),
+                                         ('Делай, как надо. Как не надо, не делай', null),
+                                         ('Ты можешь все, что захочешь. Но не все, что захочешь, ты можешь', null),
+                                         ('Если грустно - выпей чаю. Станет легче, отвечаю', null),
+                                         ('Все будет, но не сразу...', null);

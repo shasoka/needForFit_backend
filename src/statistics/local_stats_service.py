@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.approaches.service import get_approaches_by_wid_grouped_by_eid
@@ -25,18 +26,26 @@ class LocalStatsService:
         return await cls.save_stats_to_database(exercises_count, max_wights, max_reps, favourite_exercise, total_weight)
 
     @classmethod
-    async def save_stats_to_database(cls, exercises_count: int, max_weights: dict, max_reps: dict,
-                                     favourite_exercise: str, total_weight: int):
-        local_stats = LocalStats(
-            wid=cls.wid,
-            exercises_count=exercises_count,
-            max_weights=max_weights,
-            max_reps=max_reps,
-            favorite_exercise=favourite_exercise,
-            total_weight=total_weight
-        )
+    async def save_stats_to_database(cls, exercises_count: int, max_weights: dict, max_reps: dict, favourite_exercise: str, total_weight: int):
+        local_stats = await cls.session.execute(select(LocalStats).where(LocalStats.wid == cls.wid))
+        local_stats = local_stats.scalars().first()
+        if local_stats is None:
+            local_stats = LocalStats(
+                wid=cls.wid,
+                exercises_count=exercises_count,
+                max_weights=max_weights,
+                max_reps=max_reps,
+                favorite_exercise=favourite_exercise,
+                total_weight=total_weight
+            )
+            cls.session.add(local_stats)
+        else:
+            local_stats.exercises_count = exercises_count
+            local_stats.max_weights = max_weights
+            local_stats.max_reps = max_reps
+            local_stats.favorite_exercise = favourite_exercise
+            local_stats.total_weight = total_weight
 
-        cls.session.add(local_stats)
         await cls.session.commit()
         await cls.session.refresh(local_stats)
         return local_stats

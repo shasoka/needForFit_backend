@@ -15,6 +15,8 @@ class Exercise(Base):
     name: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
     image: Mapped[str] = mapped_column(nullable=False)
+    image_url: Mapped[str] = mapped_column()
+    video_url: Mapped[str] = mapped_column()
     tid: Mapped[int] = mapped_column(ForeignKey("exercise_types.id"))
 
     approaches: Mapped[List["Approach"]] = relationship("Approach", back_populates="exercise")

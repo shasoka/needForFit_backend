@@ -4,27 +4,147 @@ INSERT INTO users (username, password) VALUES
     -- admin;admin
 
 -- Добавление упражнений
-INSERT INTO exercises (name, description, image) VALUES
-    ('Приседания', 'Базовое упражнение для нижней части тела', NULL),
-    ('Жим лежа', 'Упражнение для верхней части тела', NULL),
-    ('Становая тяга', 'Комплексное упражнение для всего тела', NULL),
-    ('Жим штанги над головой', 'Упражнение для плеч и трицепса', NULL),
-    ('Подтягивания', 'Упражнение для верхней части тела', NULL),
-    ('Планка', 'Упражнение для стабилизации ядра', NULL),
-    ('Молотки', 'Изолирующее упражнение для бицепса', NULL),
-    ('Выпады', 'Тренировка ног, акцент на ягодицы и квадрицепсы', NULL),
-    ('Тяга гантели к животу', 'Упражнение для спины и бицепса', NULL),
-    ('Отжимания', 'Тренировка груди и трицепса', NULL),
-    ('Скручивания', 'Тренировка пресса', NULL),
-    ('Лег-пресс', 'Тренировка ног, акцент на бедра и ягодицы', NULL),
-    ('Подъемы на носки', 'Изолирующее упражнение для икр', NULL),
-    ('Дипсы', 'Тренировка трицепса и груди', NULL),
-    ('Русские скручивания', 'Тренировка для косых мышц живота', NULL),
-    ('Тяга штанги к груди в наклоне', 'Тренировка спины и бицепса', NULL),
-    ('Молотки для бицепса', 'Изолирующее упражнение для бицепса', NULL),
-    ('Обратные скручивания', 'Тренировка нижнего пресса', NULL),
-    ('Боковая планка', 'Упражнение для стабилизации ядра', NULL),
-    ('Разгибание рук на блоке', 'Изолирующее упражнение для трицепса', NULL);
+INSERT INTO exercises (name, description, image, image_url, video_url) VALUES
+    (
+     'Приседания',
+     'Базовое упражнение для нижней части тела',
+     'localhost:8000/static/images/exercises/squats.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Жим лежа',
+     'Упражнение для верхней части тела',
+     'localhost:8000/static/images/exercises/bench_press.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Становая тяга',
+     'Комплексное упражнение для всего тела',
+     'localhost:8000/static/images/exercises/deadlift.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Жим штанги над головой',
+     'Упражнение для плеч и трицепса',
+     'localhost:8000/static/images/exercises/overhead_press.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Подтягивания',
+     'Упражнение для верхней части тела',
+     'localhost:8000/static/images/exercises/pull_ups.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Планка',
+     'Упражнение для стабилизации торса',
+     'localhost:8000/static/images/exercises/plank.png',
+     'https://fitnessprogramer.com',
+     ''
+    ),
+    (
+     'Молотки',
+     'Изолирующее упражнение для бицепса',
+     'localhost:8000/static/images/exercises/hammer.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Выпады',
+     'Тренировка ног, акцент на ягодицы и квадрицепсы',
+     'localhost:8000/static/images/exercises/lunges.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Тяга гантели к животу',
+     'Упражнение для спины и бицепса',
+     'localhost:8000/static/images/exercises/dumbbell_row.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Отжимания',
+     'Тренировка груди и трицепса',
+     'localhost:8000/static/images/exercises/push_ups.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Скручивания',
+     'Тренировка пресса',
+     'localhost:8000/static/images/exercises/crunches.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Лег-пресс',
+     'Тренировка ног, акцент на бедра и ягодицы',
+     'localhost:8000/static/images/exercises/leg_press.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Подъемы на носки',
+     'Изолирующее упражнение для икр',
+     'localhost:8000/static/images/exercises/calf_raises.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Отжимания на брусьях',
+     'Тренировка трицепса и груди',
+     'localhost:8000/static/images/exercises/dips.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Русские скручивания',
+     'Тренировка для косых мышц живота',
+     'localhost:8000/static/images/exercises/russian_twists.png',
+     'https://fitnessprogramer.com/',
+     ''
+    ),
+    (
+     'Тяга штанги к груди в наклоне',
+     'Тренировка спины и бицепса',
+     'localhost:8000/static/images/exercises/lat_pull.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Подтягивания-молотки',
+     'Изолирующее упражнение для бицепса',
+     'localhost:8000/static/images/exercises/hammer_pull_ups.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Обратные скручивания',
+     'Тренировка нижнего пресса',
+     'localhost:8000/static/images/exercises/reverse_crunches.png',
+     'https://training.fit/exercises/',
+     ''
+    ),
+    (
+     'Боковая планка',
+     'Упражнение для стабилизации торса',
+     'localhost:8000/static/images/exercises/side_plank.png',
+     'https://fitnessprogramer.com/',
+     ''
+    ),
+    (
+     'Разгибание рук на блоке',
+     'Изолирующее упражнение для трицепса',
+     'localhost:8000/static/images/exercises/triceps_extension.png',
+     'https://training.fit/exercises/',
+     ''
+    );
 
 -- Добавление тренировок
 INSERT INTO workouts (uid)
@@ -53,7 +173,7 @@ FROM approaches a
 JOIN workouts w ON a.wid = w.id
 WHERE w.uid = 1;
 
--- Вычисляем количество упражнений, максимальный вес, максимальное количество повторений и общий вес для каждой тренировки
+-- Добавление локальной статистики --
 WITH stats AS (
     SELECT
         wid,
@@ -76,7 +196,6 @@ WITH stats AS (
     GROUP BY wid
 ),
 
--- Вычисляем упражнение с максимальным количеством подходов для каждой тренировки
 favourite_exercise AS (
     SELECT
         wid,
@@ -86,7 +205,6 @@ favourite_exercise AS (
     GROUP BY wid, eid
 )
 
--- Вставляем вычисленные статистики в таблицу local_stats
 INSERT INTO local_stats (wid, exercises_count, max_weights, max_reps, favorite_exercise, total_weight)
 SELECT
     s.wid,
@@ -109,10 +227,10 @@ INSERT INTO exercise_types (name) VALUES
 
 -- Обновление таблицы упражнений (exercises) с добавлением типов
 UPDATE exercises SET tid = 1 WHERE name IN ('Приседания', 'Выпады', 'Лег-пресс', 'Подъемы на носки');
-UPDATE exercises SET tid = 2 WHERE name IN ('Жим лежа', 'Отжимания', 'Дипсы');
+UPDATE exercises SET tid = 2 WHERE name IN ('Жим лежа', 'Отжимания', 'Отжимания на брусьях');
 UPDATE exercises SET tid = 3 WHERE name IN ('Становая тяга', 'Тяга гантели к животу', 'Тяга штанги к груди в наклоне', 'Подтягивания');
 UPDATE exercises SET tid = 4 WHERE name IN ('Жим штанги над головой', 'Разгибание рук на блоке');
-UPDATE exercises SET tid = 5 WHERE name IN ('Молотки', 'Молотки для бицепса');
+UPDATE exercises SET tid = 5 WHERE name IN ('Молотки', 'Подтягивания-молотки');
 UPDATE exercises SET tid = 6 WHERE name IN ('Планка', 'Скручивания', 'Русские скручивания', 'Обратные скручивания', 'Боковая планка');
 
 -- Добавление типов тренировок --

@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS exercises (
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     image VARCHAR(255),
+    image_url VARCHAR(255),
+    video_url VARCHAR(255),
     tid INTEGER REFERENCES exercise_types(id)
 );
 

@@ -4,5 +4,5 @@
 
 /static/images/users/*
 !/static/images/users/profile_picture_placeholder.png
-
+/static/images/exercises_raw/*
 .env

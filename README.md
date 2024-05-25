@@ -11,7 +11,7 @@
    ```
    psql -U postgres -h localhost -f .\migrations\migrate.sql -f .\migrations\seed.sql
    ```
-   Скрипт ```migrate.sql``` создает БД с именем nff и пятью таблицами. 
+   Скрипт ```migrate.sql``` создает БД с именем nff и девятью таблицами. 
    Скрипт ```seed.sql``` заполняет таблицы плейсхолдерами.
 2. Создаем файл с именем ```.env```. Его содержимое должно иметь следующую структуру:
    ```
@@ -23,8 +23,12 @@
 
    JWT_SECRET=<sha-256 hashed string>
    JWT_ALG=HS256
+   TOKEN_EXPIRATION=<integer number of minutes>
+
+   SERVER_HOST=localhost
+   SERVER_PORT=8000
    ```
-   По дефолту хостом является ```localhost```, а портом - ```5432``` (смотрите ```example.env```). Хэш можно получить где-то здесь: https://emn178.github.io/online-tools/sha256.html.
+   По дефолту хостом является `localhost`, а портами - `5432`(для БД) и `8000`(для сервера) (смотрите ```example.env```). Хэш можно получить где-то здесь: https://emn178.github.io/online-tools/sha256.html.
 3. Создаем виртуальное окружение и активируем его:
    ```
    python -m venv venv

@@ -16,7 +16,7 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=DayPhraseRead)
+@router.get("/{uid}", response_model=DayPhraseRead)
 async def get_day_phrase(
         uid: Optional[int],
         current_user: Optional[User] = Depends(current_user_getter_moderate),

@@ -99,7 +99,10 @@ class CurrentUserManager:
             raise HTTPException(status_code=401, detail="Not authorized")
         else:
             if token is not None:
-                return await get_current_user(token, session)
+                try:
+                    return await get_current_user(token, session)
+                except Exception as _:
+                    return None
             return None
 
 

@@ -10,140 +10,140 @@ INSERT INTO exercises (name, description, image, image_url, video_url) VALUES
      'Базовое упражнение для нижней части тела',
      'localhost:8000/static/images/exercises/squats.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=51xwwaA5BnQ&list=PLQu-azkUmgPzW13gBaPE7RNFwGiOTEcVc&index=17'
+     'https://www.youtube.com/embed/51xwwaA5BnQ?si=msRr9TrwQYPyYPAt'
     ),
     (
      'Жим лежа',
      'Упражнение для верхней части тела',
      'localhost:8000/static/images/exercises/bench_press.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=16WIxe9B0-A&list=PLGlEeklEVCUm2gK0Vvpti5d1zibe-DyOZ&index=21'
+     'https://www.youtube.com/embed/16WIxe9B0-A?si=28qc9OS1m5i1Fw8R'
     ),
     (
      'Становая тяга',
      'Комплексное упражнение для всего тела',
      'localhost:8000/static/images/exercises/deadlift.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=qwIjPSF9d18&list=PLGlEeklEVCUm2gK0Vvpti5d1zibe-DyOZ&index=6'
+     'https://www.youtube.com/embed/qwIjPSF9d18?si=HNK0zXNK0TNToajJ'
     ),
     (
      'Жим штанги над головой',
      'Упражнение для плеч и трицепса',
      'localhost:8000/static/images/exercises/overhead_press.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=L8xPi26EJo8&list=PLGlEeklEVCUm2gK0Vvpti5d1zibe-DyOZ'
+     'https://www.youtube.com/embed/L8xPi26EJo8?si=x5ynjxMcvEWepSs1'
     ),
     (
      'Подтягивания',
      'Упражнение для верхней части тела',
      'localhost:8000/static/images/exercises/pull_ups.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=Smb8BTBBomc'
+     'https://www.youtube.com/embed/Smb8BTBBomc?si=7qs9gMK_QO1TKTtY'
     ),
     (
      'Планка',
      'Упражнение для стабилизации торса',
      'localhost:8000/static/images/exercises/plank.png',
      'https://fitnessprogramer.com',
-     'https://www.youtube.com/watch?v=0JtBS11DGDk'
+     'https://www.youtube.com/embed/0JtBS11DGDk?si=DLEY0fJtxQ8LVft5'
     ),
     (
      'Молотки',
      'Изолирующее упражнение для бицепса',
      'localhost:8000/static/images/exercises/hammer.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=Kkp0anSdkPY&list=PLGlEeklEVCUkj3AO8dCny4d3PzFfGr-Ox&index=26'
+     'https://www.youtube.com/embed/Kkp0anSdkPY?si=ulnQoy7ADDSJ1_Y2'
     ),
     (
      'Выпады',
      'Тренировка ног, акцент на ягодицы и квадрицепсы',
      'localhost:8000/static/images/exercises/lunges.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=eq7Gb1-CVVg&list=PLGlEeklEVCUkj3AO8dCny4d3PzFfGr-Ox&index=10'
+     'https://www.youtube.com/embed/eq7Gb1-CVVg?si=MaKR_U5SJQP6AsCG'
     ),
     (
      'Тяга гантели к животу',
      'Упражнение для спины и бицепса',
      'localhost:8000/static/images/exercises/dumbbell_row.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=HI0Ny8orI3o&list=PLGlEeklEVCUkj3AO8dCny4d3PzFfGr-Ox&index=39'
+     'https://www.youtube.com/embed/HI0Ny8orI3o?si=d51C-BgarUd3Rylf'
     ),
     (
      'Отжимания',
      'Тренировка груди и трицепса',
      'localhost:8000/static/images/exercises/push_ups.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=5tJUfQtl4VM'
+     'https://www.youtube.com/embed/5tJUfQtl4VM?si=29BQLODvBKIqK78X'
     ),
     (
      'Скручивания',
      'Тренировка пресса',
      'localhost:8000/static/images/exercises/crunches.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=PAGWbEPtSPo'
+     'https://www.youtube.com/embed/PAGWbEPtSPo?si=P4EzSxr3WhSOi_BD'
     ),
     (
      'Лег-пресс',
      'Тренировка ног, акцент на бедра и ягодицы',
      'localhost:8000/static/images/exercises/leg_press.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=vWc9aKZHETo'
+     'https://www.youtube.com/embed/vWc9aKZHETo?si=nZ1pC-u6BFJHuTj1'
     ),
     (
      'Подъемы на носки',
      'Изолирующее упражнение для икр',
      'localhost:8000/static/images/exercises/calf_raises.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=D7y4XY7AmKU&list=PLGlEeklEVCUm2gK0Vvpti5d1zibe-DyOZ&index=13'
+     'https://www.youtube.com/embed/D7y4XY7AmKU?si=h4PdmGsXqhINNY0i'
     ),
     (
      'Отжимания на брусьях',
      'Тренировка трицепса и груди',
      'localhost:8000/static/images/exercises/dips.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=XSmkKGKk-IA'
+     'https://www.youtube.com/embed/XSmkKGKk-IA?si=y92_jiZeUsrGDukU'
     ),
     (
      'Русские скручивания',
      'Тренировка для косых мышц живота',
      'localhost:8000/static/images/exercises/russian_twists.png',
      'https://fitnessprogramer.com/',
-     'https://www.youtube.com/watch?v=CRS8837Aq4I'
+     'https://www.youtube.com/embed/CRS8837Aq4I?si=zAbgjrW_bj37tgSQ'
     ),
     (
      'Тяга штанги к груди в наклоне',
      'Тренировка спины и бицепса',
      'localhost:8000/static/images/exercises/lat_pull.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=wj2Ww8NWilQ&list=PLGlEeklEVCUm2gK0Vvpti5d1zibe-DyOZ&index=28'
+     'https://www.youtube.com/embed/wj2Ww8NWilQ?si=LyTHtNcwY-ElYkzc'
     ),
     (
      'Подтягивания параллельным хватом',
      'Изолирующее упражнение для бицепса',
      'localhost:8000/static/images/exercises/hammer_pull_ups.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=5VgNUSme14g'
+     'https://www.youtube.com/embed/5VgNUSme14g?si=Oa-b8c-Trdax8jFP'
     ),
     (
      'Обратные скручивания',
      'Тренировка нижнего пресса',
      'localhost:8000/static/images/exercises/reverse_crunches.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=_hhQd9uIRuU'
+     'https://www.youtube.com/embed/_hhQd9uIRuU?si=vFNdvJMUHlgGdQnQ'
     ),
     (
      'Боковая планка',
      'Упражнение для стабилизации торса',
      'localhost:8000/static/images/exercises/side_plank.png',
      'https://fitnessprogramer.com/',
-     'https://www.youtube.com/watch?v=b4aF-P1n048'
+     'https://www.youtube.com/embed/b4aF-P1n048?si=ZboHmlzcgdDthW10'
     ),
     (
      'Экстензия трицепсов над головой',
      'Изолирующее упражнение для трицепса',
      'localhost:8000/static/images/exercises/triceps_extension.png',
      'https://training.fit/exercises/',
-     'https://www.youtube.com/watch?v=7QVHcc_aP5Y'
+     'https://www.youtube.com/embed/7QVHcc_aP5Y?si=uon7-Qs3aWHoGx-c'
     );
 
 -- Добавление тренировок

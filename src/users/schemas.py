@@ -25,3 +25,12 @@ class UserWithStats(UserRead):
 class UserWithWorkoutsAndStats(MyBaseModel):
     user: UserWithStats
     workouts: List[WorkoutWithStatsRead]
+
+
+class ChangeLogin(MyBaseModel):
+    new_login: str
+
+
+class ChangePassword(MyBaseModel):
+    old_password: str
+    new_password: str

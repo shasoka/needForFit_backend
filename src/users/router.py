@@ -13,7 +13,7 @@ from src.users import service
 from src.auth import service as auth_service
 from src.auth.schemas import Token
 from src.config import TOKEN_EXPIRATION
-from src.users.schemas import UserRead, UserWithWorkoutsAndStats, UserLogin
+from src.users.schemas import UserRead, UserWithWorkoutsAndStats, UserLogin, ChangeLogin, ChangePassword
 
 router = APIRouter(
     prefix="/api/users",
@@ -92,23 +92,22 @@ async def delete_photo(
 @router.post("/{uid}/login/change", response_model=UserRead)
 async def change_login(
         uid: int,
-        new_login: str,
+        login_state: ChangeLogin,
         current_user: User = Depends(auth_service.current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != uid:
         raise HTTPException(status_code=403, detail="Access forbidden")
-    return await service.change_login(uid, new_login, session)
+    return await service.change_login(uid, login_state.new_login, session)
 
 
 @router.post("/{uid}/password/change", response_model=UserRead)
 async def change_password(
         uid: int,
-        old_password: str,
-        new_password: str,
+        password_state: ChangePassword,
         current_user: User = Depends(auth_service.current_user_getter_strict),
         session: AsyncSession = Depends(get_async_session)
 ):
     if current_user.id != uid:
         raise HTTPException(status_code=403, detail="Access forbidden")
-    return await service.change_password(uid, old_password, new_password, session)
+    return await service.change_password(uid, password_state.old_password, password_state.new_password, session)
